@@ -1,8 +1,9 @@
 class OpeningStartingLineup < ActiveRecord::Base
+	belongs_to :team
+	belongs_to :user
+
 	scope :team, ->(team){ where(team_id: team) }
 	scope :year, ->(year){ where(year: year) }
-
-	belongs_to :team
 
 	class << self
 		def team_lienups(team, year)

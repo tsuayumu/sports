@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-	has_one :opening_starting_lineup
+	has_many :opening_starting_lineup
 
 	scope :team_id, ->(name_en){ find_by(name_en: name_en).id}
 
