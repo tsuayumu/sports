@@ -1,16 +1,7 @@
 class User::MypageController < ApplicationController
 	def index
+		@user = current_user
 		#userの予想したスターティングメンバー12球団 nilあり
-		# @user = User.new()
-		# @starting_lineups = User.starting_lineups
-		#user_name
-	end
-
-	def edit
-		
-	end
-
-	def create
-		
+		@starting_lineups = @user.starting_lienups({year: 2018})
 	end
 end
