@@ -1,3 +1,10 @@
+User.create!(
+  name: "tsuda",
+  email: "t.ayu.1605@gmail.com",
+  password: 'password',
+  favorite_team: "1"
+)
+
 family_names = %w{
   佐藤:サトウ:sato
   鈴木:スズキ:suzuki
@@ -20,7 +27,7 @@ given_names = %w{
   User.create!(
     name: "#{fn[2]}#{gn[2]}",
     email: "#{fn[2]}.#{gn[2]}@example.com",
-    hashed_password: 'password',
+    password: 'password',
     favorite_team: "#{n+1}"
   )
 end
