@@ -29,8 +29,10 @@ name_en = %w{
 }
 
 12.times do |n|
+  league = n < 6 ? 1 : 2
   Team.create!(
     name: "#{name[n]}",
     name_en: "#{name_en[n]}",
+    league_id: league
   )
 end
