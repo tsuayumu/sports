@@ -1,109 +1,107 @@
-div#php
+div[id="#{@team.name_en.capitalize}"]
 	div.uk-container.uk-container-center
 		h1.page-tit.white
-			| <?php echo $teamName; ?> 2016開幕スタメン予想
+			| #{@team.name} #{@year}開幕スタメン予想
 		div.form-content
-			form[action="" method="post" onclick="ga('send','event','Team','Post','<?php echo $teamName; ?>',1,{'nonInteraction':ture})"]
+			= form_for @form, url: :create_opening_starting_lineup do |f|
 				h2.white
 					| 打順入力
 				div.block
-					| 1番: <input type="text" name="one" placeholder="入力してください" required="required" value="<?php echo $default1; ?>">
+					| 1番: #{f.text_field :one, required: true}
 				div.block
-					| 2番: <input type="text" name="two" placeholder="入力してください" required="required" value="<?php echo $default2; ?>">
+					| 2番: #{f.text_field :two, required: true}
 				div.block
-					| 3番: <input type="text" name="three" placeholder="入力してください" required="required" value="<?php echo $default3; ?>">
+					| 3番: #{f.text_field :three, required: true}
 				div.block
-					| 4番: <input type="text" name="four" placeholder="入力してください" required="required" value="<?php echo $default4; ?>">
+					| 4番: #{f.text_field :four, required: true}
 				div.block
-					| 5番: <input type="text" name="five" placeholder="入力してください" required="required" value="<?php echo $default5; ?>">
+					| 5番: #{f.text_field :five, required: true}
 				div.block
-					| 6番: <input type="text" name="six" placeholder="入力してください" required="required" value="<?php echo $default6; ?>">
+					| 6番: #{f.text_field :six, required: true}
 				div.block
-					| 7番: <input type="text" name="seven" placeholder="入力してください" required="required" value="<?php echo $default7; ?>">
+					| 7番: #{f.text_field :seven, required: true}
 				div.block
-					| 8番: <input type="text" name="eight" placeholder="入力してください" required="required" value="<?php echo $default8; ?>">
+					| 8番: #{f.text_field :eight, required: true}
 				div.block
-					| 9番: <input type="text" name="nine" placeholder="入力してください" required="required" value="<?php echo $default9; ?>">
-				| user: <input type="text" name="user" value="名無し">
-				input[type="submit" value="投稿"]
+					| 9番: #{f.text_field :nine, required: true}	
+				= f.hidden_field :team_id, value: @team.id
+				= f.hidden_field :year, value: @year
+				// | user: #{f.text_field :user_id}
+				= f.submit '投稿'
 					p
 						| ＊デフォルトは管理人予想
 
-	h2.white
-		| 投稿一覧<?php echo $row;?>件
+		h2.white
+			| 投稿一覧#{@opening_lineups.count}件
 
-	div.hidden-ss
-		/ <?php 
-		/ 	foreach ( $result as $results):
-		/ ?>
-		div#php.bbs-contet.uk-grid
-			section.uk-width-2-5.member[style="text-align: center;"]
-				div.back-brack
-					| 予想者：?php echo $results['user']; ?>
-					p.mt0
-						| 1番  　<?php eco $results['one']; ?>
-					p.mt0
-						| 2番  　<?php echo $results['two']; ?>
-					p.mt0
-						| 3番  　<?php echo $results['three']; ?>
-					p.mt0
-						| 4番  　<?php echo $results['four']; ?>
-					p.mt0
-						| 5番  　<?php echo $results['five']; ?>
-					p.mt0
-						| 6番  　<?php echo $results['six']; ?>
-					p.mt0
-						| 7番  　<?php echo $results['seven']; ?>
-					p.mt0
-						| 8番  　<?php echo $results['eight']; ?>
-					p.mt0
-						| 9番  　<?php echo $results['nine']; ?>
-		section.uk-width-3-5.coment
-			h3
-				| コメント
-			form[action="" method="post" onclick="ga('send','event','Comment','Post','<?php echo $teamName; ?>',1,{'nonInteraction':ture})"]
-				| user: <input type="text" name="name" size="10" value="名無し">
-				| message: <input type="text" name="message">
-				input[type="hidden" name="id" value=" <?php echo $results['id']; ?>"]
-				input[type="hidden" name="device" value="lg"]
-				input[type="submit" value="投稿"]
-			div.text-coment
-				| <?php echo $results['coment']; ?>
+		div.hidden-ss
+			- @opening_lineups.each do |opening_lineup|
+				div.bbs-contet.uk-grid[id="#{opening_lineup.id * 10}"]
+					section.uk-width-2-5.member[style="text-align: center;"]
+						div.back-brack
+							| 予想者： #{opening_lineup.user_id}
+							p.mt0
+								| 1番  　#{opening_lineup.one}
+							p.mt0
+								| 2番  　#{opening_lineup.two}
+							p.mt0
+								| 3番  　#{opening_lineup.three}
+							p.mt0
+								| 4番  　#{opening_lineup.four}
+							p.mt0
+								| 5番  　#{opening_lineup.five}
+							p.mt0
+								| 6番  　#{opening_lineup.six}
+							p.mt0
+								| 7番  　#{opening_lineup.seven}
+							p.mt0
+								| 8番  　#{opening_lineup.eight}
+							p.mt0
+								| 9番  　#{opening_lineup.nine}
+					section.uk-width-3-5.coment
+						h3
+							| コメント
+						form[action="" method="post" onclick="ga('send','event','Comment','Post','<?php echo $teamName; ?>',1,{'nonInteraction':ture})"]
+							| user: <input type="text" name="name" size="10" value="名無し">
+							| message: <input type="text" name="message">
+							input[type="hidden" name="id" value=" <?php echo $results['id']; ?>"]
+							input[type="hidden" name="device" value="lg"]
+							input[type="submit" value="投稿"]
+						div.text-coment
+							| <?php echo $results['coment']; ?>
 
-	div.visible-ss
-		/ <?php 
-		/ 	foreach ($result as $results) : 
-		/ ?>
-		div#test.bbs-content.uk-container.uk-container-center
-			section.member[style="text-align: center;"]
-				| 予想者：<?php echo $results['user']; ?>
-				p.mt0
-					| 1番  　<?php ecesults['one']; ?>
-				p.mt0
-					| 2番  　<?php echo $results['two']; ?>
-				p.mt0
-					| 3番  　<?php echo $results['three']; ?>
-				p.mt0
-					| 4番  　<?php echo $results['four']; ?>
-				p.mt0
-					| 5番  　<?php echo $results['five']; ?>
-				p.mt0
-					| 6番  　<?php echo $results['six']; ?>
-				p.mt0
-					| 7番  　<?php echo $results['seven']; ?>
-				p.mt0
-					| 8番  　<?php echo $results['eight']; ?>
-				p.mt0
-					| 9番  　<?php echo $results['nine']; ?>
-			section.coment
-				h3[style="padding:10px 0 0 0;"]
-					| コメント
-				form[action="" method="post" onclick="ga('send','event','Comment','Post','<?php echo $teamName; ?>',1,{'nonInteraction':ture})"]
-					| user: <input type="text" name="name" size="10" value="名無し">
-					br
-					| message: <input type="text" name="message">
-					input[type="hidden" name="id" value=" <?php echo $results['id']; ?>"]
-					input[type="hidden" name="device" value="ss"]
-					input[type="submit" value="投稿"]
-				div.text-coment
-					| <?php echo $results['coment']; ?>
+		div.visible-ss
+			- @opening_lineups.each do |opening_lineup|
+				div#test.bbs-content.uk-container.uk-container-center
+					section.member[style="text-align: center;"]
+						| 予想者： #{opening_lineup.user_id}
+						p.mt0
+							| 1番  　#{opening_lineup.one}
+						p.mt0
+							| 2番  　#{opening_lineup.two}
+						p.mt0
+							| 3番  　#{opening_lineup.three}
+						p.mt0
+							| 4番  　#{opening_lineup.four}
+						p.mt0
+							| 5番  　#{opening_lineup.five}
+						p.mt0
+							| 6番  　#{opening_lineup.six}
+						p.mt0
+							| 7番  　#{opening_lineup.seven}
+						p.mt0
+							| 8番  　#{opening_lineup.eight}
+						p.mt0
+							| 9番  　#{opening_lineup.nine}
+					section.coment
+						h3[style="padding:10px 0 0 0;"]
+							| コメント
+						form[action="" method="post" onclick="ga('send','event','Comment','Post','<?php echo $teamName; ?>',1,{'nonInteraction':ture})"]
+							| user: <input type="text" name="name" size="10" value="名無し">
+							br
+							| message: <input type="text" name="message">
+							input[type="hidden" name="id" value=" <?php echo $results['id']; ?>"]
+							input[type="hidden" name="device" value="ss"]
+							input[type="submit" value="投稿"]
+						div.text-coment
+							| <?php echo $results['coment']; ?>

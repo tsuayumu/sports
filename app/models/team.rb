@@ -3,6 +3,7 @@ class Team < ActiveRecord::Base
 	has_one :league
 
 	scope :team_id, ->(name_en){ find_by(name_en: name_en).id}
+	scope :team, ->(name_en){ find_by(name_en: name_en) }
 
 	class << self
 		def all_teams

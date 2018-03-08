@@ -39,6 +39,6 @@ div#home
 			h2.home-tit
 				| パリーグ
 			div.uk-grid.uk-grid-width-large-1-3.uk-grid-width-small-1-2[data-uk-grid-margin]
-				section.uk-scrollspy-init-inview
-					a[href=""]
-						img[]
+				- @pacific_teams.each do |team|
+					section.uk-scrollspy-init-inview
+						= link_to image_tag("shared/team-logos/#{team.name_en}.jpg"), index_opening_starting_lineup_path(year: 2018, team: team.name_en)
