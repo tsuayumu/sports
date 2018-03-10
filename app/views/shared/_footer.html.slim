@@ -4,42 +4,12 @@ section#footer
   ul.footer-work
     p.mt0
       | セリーグ
-    li
-      a[href="Swallows.php"]
-        | 東京ヤクルトスワローズ
-    li
-      a[href="Giants.php"]
-        | 読売巨人ジャイアンツ
-    li
-      a[href="Tigers.php"]
-        | 阪神タイガーズ
-    li
-      a[href="Carp.php"]
-        | 広島東洋カープ
-    li
-      a[href="Dragons.php"]
-        | 中日ドラゴンズ
-    li
-      a[href="Baystars.php"]
-        | DeNA横浜ベイスターズ
+    - central_teams_for_views.each do |team|
+      li
+        = link_to team.name, index_opening_starting_lineup_path(year: 2018, team: team.name_en)
   ul.footer-work
     p.mt0
       | パリーグ
-    li
-      a[href="Hawks.php"]
-        | 福岡ソフトバンクホークス
-    li
-      a[href="Fighters.php"]
-        | 北海道日本ハムファイターズ
-    li
-      a[href="Marines.php"]
-        | 千葉ロッテマリーンズ
-    li
-      a[href="Lions.php"]
-        | 西武ライオンズ
-    li
-      a[href="Buffaloes.php"]
-        | オリックスバファローズ
-    li
-      a[href="Eagles.php"]
-        | 東北楽天イーグルズ
+    - pacific_teams_for_views.each do |team|
+      li
+        = link_to team.name, index_opening_starting_lineup_path(year: 2018, team: team.name_en)

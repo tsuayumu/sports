@@ -16,11 +16,11 @@ name = %w{
 name_en = %w{
   giants
   tigers
-  swallors
+  swallows
   carp
   baystars
-  doragons
-  horks
+  dragons
+  hawks
   fighters
   buffaloes
   marines
