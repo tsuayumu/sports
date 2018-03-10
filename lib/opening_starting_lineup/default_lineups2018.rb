@@ -1,4 +1,4 @@
-class OpeningStartingLineup::2018::DefaultLineups
+class OpeningStartingLineup::DefaultLineups2018
 	LINEUPS = {
 		giants: {
 			one: 	"立岡",
@@ -22,7 +22,7 @@ class OpeningStartingLineup::2018::DefaultLineups
 			eight:  "梅野",
 			nine: 	"藤浪"
 		},
-		swallors: {
+		swallows: {
 			one: 	"青木",
 			two: 	"川端",
 			three: 	"山田",
@@ -134,7 +134,7 @@ class OpeningStartingLineup::2018::DefaultLineups
 		}
 	}
 
-	private_constant: :LINEUPS
+	private_constant :LINEUPS
 
 	def initialize(team_name)
 		@team_name = team_name

@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306145959) do
+ActiveRecord::Schema.define(version: 20180310023501) do
 
   create_table "leagues", force: true do |t|
     t.string   "name",       null: false
     t.string   "name_en",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "opening_starting_lineup_comments", force: true do |t|
+    t.integer  "opening_starting_lineup_id", null: false
+    t.integer  "user_id"
+    t.string   "comment",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -26,7 +26,7 @@ module Baseball
       g.controller_specs false
       g.view_specs false
     end
+    config.paths.add 'lib', eager_load: true
   end
 end
 
-config.autoload_paths += %W(#{config.root}/lib)
