@@ -28,3 +28,5 @@ module Baseball
     end
   end
 end
+
+config.autoload_paths += %W(#{config.root}/lib)
