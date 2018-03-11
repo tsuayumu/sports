@@ -100,12 +100,15 @@ div[id="#{@team.name_en.capitalize}"]
 					section.coment
 						h3[style="padding:10px 0 0 0;"]
 							| コメント
-						form[action="" method="post" onclick="ga('send','event','Comment','Post','<?php echo $teamName; ?>',1,{'nonInteraction':ture})"]
-							| user: <input type="text" name="name" size="10" value="名無し">
-							br
-							| message: <input type="text" name="message">
-							input[type="hidden" name="id" value=" <?php echo $results['id']; ?>"]
-							input[type="hidden" name="device" value="ss"]
-							input[type="submit" value="投稿"]
+						= form_for @comment_form, url: :create_opening_starting_lineup_comment do |f|
+							| 感想: #{f.text_field :comment, required: true}
+							= f.hidden_field :opening_starting_lineup_id, value: opening_lineup.id
+							- if current_user.present?
+								= f.hidden_field :user_id, value: current_user.id
+							= f.submit '投稿'
 						div.text-coment
-							| <?php echo $results['coment']; ?>
+							- comments = opening_starting_lineup_comments(opening_lineup.id)
+							- if comments.present?
+								- comments.each do |comment|
+									p
+										|　#{comment.comment}   #{comment.updated_at}
