@@ -64,7 +64,8 @@ div[id="#{@team.name_en.capitalize}"]
 						= form_for @comment_form, url: :create_opening_starting_lineup_comment do |f|
 							| 感想: #{f.text_field :comment, required: true}
 							= f.hidden_field :opening_starting_lineup_id, value: opening_lineup.id
-							= f.hidden_field :user_id, value: current_user.id
+							- if current_user.present?
+								= f.hidden_field :user_id, value: current_user.id
 							= f.submit '投稿'
 						div.text-coment
 							- comments = opening_starting_lineup_comments(opening_lineup.id)
