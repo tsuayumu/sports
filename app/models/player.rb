@@ -12,8 +12,4 @@ class Player < ActiveRecord::Base
 			name_and_id
 		end
 	end
-
-	def initialize()
-
-	end
 end
