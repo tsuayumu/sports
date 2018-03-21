@@ -3,17 +3,17 @@ require 'open-uri'
 
 TEAM = [
 	{ name_en: "giants", key: "g" },
-	{ name_en: "tigers", key: "c" },
+	{ name_en: "tigers", key: "t" },
 	{ name_en: "swallows", key: "s" },
-	{ name_en: "carp", key: "t" },
+	{ name_en: "carp", key: "c" },
 	{ name_en: "baystars", key: "yb" },
 	{ name_en: "dragons", key: "d" },
-	{ name_en: "hawks", key: "f" },
-	{ name_en: "fighters", key: "h" },
-	{ name_en: "buffaloes", key: "m" },
-	{ name_en: "marines", key: "l" },
+	{ name_en: "hawks", key: "h" },
+	{ name_en: "fighters", key: "f" },
+	{ name_en: "buffaloes", key: "bs" },
+	{ name_en: "marines", key: "m" },
 	{ name_en: "eagles", key: "e" },
-	{ name_en: "lions", key: "bs" }
+	{ name_en: "lions", key: "l" }
 ]
 
 TEAM.each do |team|
@@ -31,7 +31,7 @@ TEAM.each do |team|
 
 	doc.xpath('//tr').each do |node|
 		player = Player.find_by(name: node.search("td:nth-child(2)").text)
-		if player.present? && !player.id.nil?
+		if player.present? && !player.id.nil? && !(player.name == "")
 			record = PlayerRecord2017.find_by(player_id: player.id)
 			if record.nil?
 				record = PlayerRecord2017.new

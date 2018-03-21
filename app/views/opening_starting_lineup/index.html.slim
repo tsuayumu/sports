@@ -7,23 +7,23 @@ div[id="#{@team.name_en.capitalize}"]
 				h2.white
 					| 打順入力
 				div.block
-					| 1番: #{f.text_field :one, required: true}
+					| 1番: #{f.select(:one_id, @select_players, required: true)}
 				div.block
-					| 2番: #{f.text_field :two, required: true}
+					| 2番: #{f.select(:two_id, @select_players, required: true)}
 				div.block
-					| 3番: #{f.text_field :three, required: true}
+					| 3番: #{f.select(:three_id, @select_players, required: true)}
 				div.block
-					| 4番: #{f.text_field :four, required: true}
+					| 4番: #{f.select(:four_id, @select_players, required: true)}
 				div.block
-					| 5番: #{f.text_field :five, required: true}
+					| 5番: #{f.select(:five_id, @select_players, required: true)}
 				div.block
-					| 6番: #{f.text_field :six, required: true}
+					| 6番: #{f.select(:six_id, @select_players, required: true)}
 				div.block
-					| 7番: #{f.text_field :seven, required: true}
+					| 7番: #{f.select(:seven_id, @select_players, required: true)}
 				div.block
-					| 8番: #{f.text_field :eight, required: true}
+					| 8番: #{f.select(:eight_id, @select_players, required: true)}
 				div.block
-					| 9番: #{f.text_field :nine, required: true}	
+					| 9番: #{f.select(:nine_id, @select_players, required: true)}	
 				= f.hidden_field :team_id, value: @team.id
 				= f.hidden_field :year, value: @year
 				// | user: #{f.text_field :user_id}
@@ -40,24 +40,13 @@ div[id="#{@team.name_en.capitalize}"]
 					section.uk-width-2-5.member[style="text-align: center;"]
 						div.back-brack
 							| 予想者： #{opening_lineup.user_id}
-							p.mt0
-								| 1番  　#{opening_lineup.one}
-							p.mt0
-								| 2番  　#{opening_lineup.two}
-							p.mt0
-								| 3番  　#{opening_lineup.three}
-							p.mt0
-								| 4番  　#{opening_lineup.four}
-							p.mt0
-								| 5番  　#{opening_lineup.five}
-							p.mt0
-								| 6番  　#{opening_lineup.six}
-							p.mt0
-								| 7番  　#{opening_lineup.seven}
-							p.mt0
-								| 8番  　#{opening_lineup.eight}
-							p.mt0
-								| 9番  　#{opening_lineup.nine}
+							- OpeningStartingLineup.order_array.each_with_index do |order, index|
+								p.mt0
+									- player = Player.find(opening_lineup[order])
+									- unless player.player_record2017.nil?
+										| #{index+1}番  　#{player.name} #{player.player_record2017.average} #{player.player_record2017.homerun} #{player.player_record2017.rbi}
+									- else
+										| #{index+1}番  　#{player.name}
 					section.uk-width-3-5.coment
 						h3
 							| コメント
@@ -79,24 +68,13 @@ div[id="#{@team.name_en.capitalize}"]
 				div#test.bbs-content.uk-container.uk-container-center
 					section.member[style="text-align: center;"]
 						| 予想者： #{opening_lineup.user_id}
-						p.mt0
-							| 1番  　#{opening_lineup.one}
-						p.mt0
-							| 2番  　#{opening_lineup.two}
-						p.mt0
-							| 3番  　#{opening_lineup.three}
-						p.mt0
-							| 4番  　#{opening_lineup.four}
-						p.mt0
-							| 5番  　#{opening_lineup.five}
-						p.mt0
-							| 6番  　#{opening_lineup.six}
-						p.mt0
-							| 7番  　#{opening_lineup.seven}
-						p.mt0
-							| 8番  　#{opening_lineup.eight}
-						p.mt0
-							| 9番  　#{opening_lineup.nine}
+						- OpeningStartingLineup.order_array.each_with_index do |order, index|
+							p.mt0
+								- player = Player.find(opening_lineup[order])
+								- unless player.player_record2017.nil?
+									| #{index+1}番  　#{player.name} #{player.player_record2017.average} #{player.player_record2017.homerun} #{player.player_record2017.rbi}
+								- else
+									| #{index+1}番  　#{player.name}
 					section.coment
 						h3[style="padding:10px 0 0 0;"]
 							| コメント
