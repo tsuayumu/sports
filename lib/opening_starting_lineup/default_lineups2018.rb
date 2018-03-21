@@ -1,24 +1,25 @@
 class OpeningStartingLineup::DefaultLineups2018
+
 	LINEUPS = {
 		giants: {
 			one: 	"立岡",
 			two: 	"吉川",
-			three: 	"坂本",
+			three: 	"坂本　勇人",
 			four: 	"ゲレーロ",
 			five: 	"マギー",
 			six: 	"岡本",
-			seven: 	"陽岱鋼",
+			seven: 	"陽",
 			eight:  "大城",
 			nine: 	"菅野"
 		},
 		tigers: {
-			one: 	"高山",
+			one: 	"西岡",
 			two: 	"鳥谷",
 			three: 	"糸井",
 			four: 	"ロサリオ",
 			five: 	"福留",
 			six: 	"中谷",
-			seven: 	"高山",
+			seven: 	"髙山",
 			eight:  "梅野",
 			nine: 	"藤浪"
 		},
@@ -30,7 +31,7 @@ class OpeningStartingLineup::DefaultLineups2018
 			five: 	"雄平",
 			six: 	"畠山",
 			seven: 	"中村",
-			eight:  "大城",
+			eight:  "小川",
 			nine: 	"坂口"
 		},
 		carp: {
@@ -50,7 +51,7 @@ class OpeningStartingLineup::DefaultLineups2018
 			three: 	"梶谷",
 			four: 	"筒香",
 			five: 	"ロペス",
-			six: 	"宮崎",
+			six: 	"宮﨑",
 			seven: 	"戸柱",
 			eight:  "今永",
 			nine: 	"倉本"
@@ -89,7 +90,7 @@ class OpeningStartingLineup::DefaultLineups2018
 			nine: 	"中島"
 		},
 		buffaloes: {
-			one: 	"T−岡田",
+			one: 	"岡田",
 			two: 	"安達",
 			three: 	"吉田",
 			four: 	"ロメロ",
@@ -103,7 +104,7 @@ class OpeningStartingLineup::DefaultLineups2018
 			one: 	"加藤",
 			two: 	"荻野",
 			three: 	"角中",
-			four: 	"ペーニャ",
+			four: 	"安田",
 			five: 	"鈴木",
 			six: 	"中村",
 			seven: 	"井上",
@@ -141,6 +142,27 @@ class OpeningStartingLineup::DefaultLineups2018
 	end
 
 	def lineup
-		LINEUPS[@team_name.to_sym]
+		lineup_to_id
+	end
+
+	def lineup_to_id
+		team = LINEUPS[@team_name.to_sym]
+		team_id = {}
+		team_id[:one_id] = name_to_id(team, :one)
+		team_id[:two_id] = name_to_id(team, :two)
+		team_id[:three_id] = name_to_id(team, :three)
+		team_id[:four_id] = name_to_id(team, :four)
+		team_id[:five_id] = name_to_id(team, :five)
+		team_id[:six_id] = name_to_id(team, :six)
+		team_id[:seven_id] = name_to_id(team, :seven)
+		team_id[:eight_id] = name_to_id(team, :eight)
+		team_id[:nine_id] = name_to_id(team, :nine)
+		team_id
+	end
+
+	def name_to_id(team, order)
+		player = Player.where(team_id: Team.team_id(@team_name)).where("name like '%#{team[order]}%'").take
+		raise team[order].inspect if player.nil?
+		player.id
 	end
 end

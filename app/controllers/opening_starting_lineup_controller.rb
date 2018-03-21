@@ -6,6 +6,7 @@ class OpeningStartingLineupController < ApplicationController
 		@lineup_form = OpeningStartingLineupForm.new(default_lineup)
 		@opening_lineups = OpeningStartingLineup.team_lienups(params[:team], params[:year]).reverse
 		@comment_form = OpeningStartingLineupCommentForm.new
+		@select_players = Player.team_player_and_id(@team.id)
 	end
 
 	def create

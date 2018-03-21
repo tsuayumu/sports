@@ -2,7 +2,7 @@ User.create!(
   name: "tsuda",
   email: "t.ayu.1605@gmail.com",
   password: 'password',
-  favorite_team: "1"
+  favorite_team_id: 1
 )
 
 family_names = %w{
@@ -28,6 +28,6 @@ given_names = %w{
     name: "#{fn[2]}#{gn[2]}",
     email: "#{fn[2]}.#{gn[2]}@example.com",
     password: 'password',
-    favorite_team: "#{n+1}"
+    favorite_team_id: 1
   )
 end

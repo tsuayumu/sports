@@ -41,5 +41,4 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'slim-rails'
 
 gem 'unicorn'
-
-
+gem 'nokogiri'

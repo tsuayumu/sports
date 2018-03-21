@@ -1,23 +1,20 @@
 class CreateOpeningStartingLineups < ActiveRecord::Migration
   def change
     create_table :opening_starting_lineups do |t|
-    	t.integer :user_id, null: true
-    	t.integer :team_id, null: false
-    	t.integer :year, null: false
-    	t.string :one, null: false
-    	t.string :two, null: false
-    	t.string :three, null: false
-    	t.string :four, null: false
-    	t.string :five, null: false
-    	t.string :six, null: false
-    	t.string :seven, null: false
-    	t.string :eight, null: false
-    	t.string :nine, null: false
-    	t.string :comment, null: true
+      t.references :user, index: true, foreign_key: true, null: true
+      t.references :team, index: true, foreign_key: true, null: false
+      t.integer :year, null: false
+      t.references :one, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :two, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :three, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :four, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :five, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :six, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :seven, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :eight, index: true, foreign_key: { to_table: :player }, null: false
+      t.references :nine, index: true, foreign_key: { to_table: :player }, null: false
+      t.string :comment, null: true
       t.timestamps
     end
-    add_index :opening_starting_lineups, :user_id
-    add_index :opening_starting_lineups, :team_id
-    add_index :opening_starting_lineups, [:user_id, :team_id]
   end
 end
