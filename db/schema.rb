@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180310023501) do
+ActiveRecord::Schema.define(version: 20180320184355) do
 
   create_table "leagues", force: true do |t|
     t.string   "name",       null: false
@@ -49,6 +49,30 @@ ActiveRecord::Schema.define(version: 20180310023501) do
   add_index "opening_starting_lineups", ["team_id"], name: "index_opening_starting_lineups_on_team_id", using: :btree
   add_index "opening_starting_lineups", ["user_id", "team_id"], name: "index_opening_starting_lineups_on_user_id_and_team_id", using: :btree
   add_index "opening_starting_lineups", ["user_id"], name: "index_opening_starting_lineups_on_user_id", using: :btree
+
+  create_table "player_record2017s", force: true do |t|
+    t.integer  "player_id"
+    t.decimal  "average",    precision: 4, scale: 3, default: 0.0, null: false
+    t.integer  "rbi",                                default: 0,   null: false
+    t.integer  "homerun",                            default: 0,   null: false
+    t.integer  "match",                              default: 0,   null: false
+    t.integer  "win",                                default: 0,   null: false
+    t.integer  "defeat",                             default: 0,   null: false
+    t.integer  "hold",                               default: 0,   null: false
+    t.integer  "save_point",                         default: 0,   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "era",        precision: 4, scale: 2,               null: false
+  end
+
+  add_index "player_record2017s", ["player_id"], name: "index_player_record2017s_on_player_id", using: :btree
+
+  create_table "players", force: true do |t|
+    t.string   "name",       null: false
+    t.integer  "team_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "teams", force: true do |t|
     t.string   "name",       null: false
