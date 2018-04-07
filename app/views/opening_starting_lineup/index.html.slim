@@ -6,24 +6,11 @@ div[id="#{@team.name_en.capitalize}"]
 			= form_for @lineup_form, url: :create_opening_starting_lineup do |f|
 				h2.white
 					| 打順入力
-				div.block
-					| 1番: #{f.select(:one_id, @select_players, required: true)}
-				div.block
-					| 2番: #{f.select(:two_id, @select_players, required: true)}
-				div.block
-					| 3番: #{f.select(:three_id, @select_players, required: true)}
-				div.block
-					| 4番: #{f.select(:four_id, @select_players, required: true)}
-				div.block
-					| 5番: #{f.select(:five_id, @select_players, required: true)}
-				div.block
-					| 6番: #{f.select(:six_id, @select_players, required: true)}
-				div.block
-					| 7番: #{f.select(:seven_id, @select_players, required: true)}
-				div.block
-					| 8番: #{f.select(:eight_id, @select_players, required: true)}
-				div.block
-					| 9番: #{f.select(:nine_id, @select_players, required: true)}	
+				- 9.times do |n|	
+					= f.fields_for "lineups[#{n}]" do |m|
+						div.block
+							| #{n+1}番: #{m.select :player_id, @select_players, required: true, selected: @lineup_form.lineups[n.to_s][:player_id]}
+							= m.hidden_field :order, value: n+1
 				= f.hidden_field :team_id, value: @team.id
 				= f.hidden_field :year, value: @year
 				// | user: #{f.text_field :user_id}
@@ -52,8 +39,8 @@ div[id="#{@team.name_en.capitalize}"]
 										| 本塁打
 									td
 										|　打点
-									- LineupManage.order_array.each_with_index do |order, index|
-										- player = Player.find(opening_lineup[order])
+									- opening_lineup.lineup.each_with_index do |order, index|
+										- player = Player.find(order.player_id)
 										tr[style="text-align: center"]
 											- unless player.player_record2017.nil?
 												td
@@ -104,8 +91,8 @@ div[id="#{@team.name_en.capitalize}"]
 									| 本塁打
 								td
 									|　打点
-							- LineupManage.order_array.each_with_index do |order, index|
-								- player = Player.find(opening_lineup[order])
+							- opening_lineup.lineup.each_with_index do |order, index|
+								- player = Player.find(order.player_id)
 								tr[style="text-align: center"]
 									- unless player.player_record2017.nil?
 										td
