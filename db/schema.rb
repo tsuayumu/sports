@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407035840) do
+ActiveRecord::Schema.define(version: 20180407061850) do
 
   create_table "leagues", force: true do |t|
     t.string   "name",                   null: false
@@ -21,18 +21,7 @@ ActiveRecord::Schema.define(version: 20180407035840) do
     t.integer  "status",     default: 0, null: false
   end
 
-  create_table "opening_starting_lineup_comments", force: true do |t|
-    t.integer  "opening_starting_lineup_id", null: false
-    t.integer  "user_id"
-    t.string   "comment",                    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "opening_starting_lineup_comments", ["opening_starting_lineup_id"], name: "index_opening_starting_lineup_id", using: :btree
-  add_index "opening_starting_lineup_comments", ["user_id"], name: "index_opening_starting_user_id", using: :btree
-
-  create_table "opening_starting_lineups", force: true do |t|
+  create_table "lineup_manages", force: true do |t|
     t.integer  "user_id"
     t.integer  "team_id",    null: false
     t.integer  "year",       null: false
@@ -50,17 +39,28 @@ ActiveRecord::Schema.define(version: 20180407035840) do
     t.datetime "updated_at"
   end
 
-  add_index "opening_starting_lineups", ["eight_id"], name: "index_opening_starting_lineups_on_eight_id", using: :btree
-  add_index "opening_starting_lineups", ["five_id"], name: "index_opening_starting_lineups_on_five_id", using: :btree
-  add_index "opening_starting_lineups", ["four_id"], name: "index_opening_starting_lineups_on_four_id", using: :btree
-  add_index "opening_starting_lineups", ["nine_id"], name: "index_opening_starting_lineups_on_nine_id", using: :btree
-  add_index "opening_starting_lineups", ["one_id"], name: "index_opening_starting_lineups_on_one_id", using: :btree
-  add_index "opening_starting_lineups", ["seven_id"], name: "index_opening_starting_lineups_on_seven_id", using: :btree
-  add_index "opening_starting_lineups", ["six_id"], name: "index_opening_starting_lineups_on_six_id", using: :btree
-  add_index "opening_starting_lineups", ["team_id"], name: "index_opening_starting_lineups_on_team_id", using: :btree
-  add_index "opening_starting_lineups", ["three_id"], name: "index_opening_starting_lineups_on_three_id", using: :btree
-  add_index "opening_starting_lineups", ["two_id"], name: "index_opening_starting_lineups_on_two_id", using: :btree
-  add_index "opening_starting_lineups", ["user_id"], name: "index_opening_starting_lineups_on_user_id", using: :btree
+  add_index "lineup_manages", ["eight_id"], name: "index_lineup_manages_on_eight_id", using: :btree
+  add_index "lineup_manages", ["five_id"], name: "index_lineup_manages_on_five_id", using: :btree
+  add_index "lineup_manages", ["four_id"], name: "index_lineup_manages_on_four_id", using: :btree
+  add_index "lineup_manages", ["nine_id"], name: "index_lineup_manages_on_nine_id", using: :btree
+  add_index "lineup_manages", ["one_id"], name: "index_lineup_manages_on_one_id", using: :btree
+  add_index "lineup_manages", ["seven_id"], name: "index_lineup_manages_on_seven_id", using: :btree
+  add_index "lineup_manages", ["six_id"], name: "index_lineup_manages_on_six_id", using: :btree
+  add_index "lineup_manages", ["team_id"], name: "index_lineup_manages_on_team_id", using: :btree
+  add_index "lineup_manages", ["three_id"], name: "index_lineup_manages_on_three_id", using: :btree
+  add_index "lineup_manages", ["two_id"], name: "index_lineup_manages_on_two_id", using: :btree
+  add_index "lineup_manages", ["user_id"], name: "index_lineup_manages_on_user_id", using: :btree
+
+  create_table "opening_starting_lineup_comments", force: true do |t|
+    t.integer  "opening_starting_lineup_id", null: false
+    t.integer  "user_id"
+    t.string   "comment",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "opening_starting_lineup_comments", ["opening_starting_lineup_id"], name: "index_opening_starting_lineup_id", using: :btree
+  add_index "opening_starting_lineup_comments", ["user_id"], name: "index_opening_starting_user_id", using: :btree
 
   create_table "player_record2017s", force: true do |t|
     t.integer  "player_id"

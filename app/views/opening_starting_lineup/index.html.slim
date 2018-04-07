@@ -52,7 +52,7 @@ div[id="#{@team.name_en.capitalize}"]
 										| 本塁打
 									td
 										|　打点
-									- OpeningStartingLineup.order_array.each_with_index do |order, index|
+									- LineupManage.order_array.each_with_index do |order, index|
 										- player = Player.find(opening_lineup[order])
 										tr[style="text-align: center"]
 											- unless player.player_record2017.nil?
@@ -104,7 +104,7 @@ div[id="#{@team.name_en.capitalize}"]
 									| 本塁打
 								td
 									|　打点
-							- OpeningStartingLineup.order_array.each_with_index do |order, index|
+							- LineupManage.order_array.each_with_index do |order, index|
 								- player = Player.find(opening_lineup[order])
 								tr[style="text-align: center"]
 									- unless player.player_record2017.nil?
