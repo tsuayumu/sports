@@ -1,6 +1,6 @@
 class TopController < ApplicationController
 	def index
-		@central_teams = Team.central_teams
-		@pacific_teams = Team.pacific_teams
+		@central_teams = League.central_teams
+		@pacific_teams = League.pacific_teams
 	end
 end

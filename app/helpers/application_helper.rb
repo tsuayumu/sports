@@ -2,11 +2,11 @@ module ApplicationHelper
 
 	# view用のメソッド　header footer
 	def central_teams_for_views
-		Team.central_teams
+		League.central_teams
 	end
 
 	def pacific_teams_for_views
-		Team.pacific_teams
+		League.pacific_teams
 	end
 
 	# view用のメソッド　opening_starting_lineup

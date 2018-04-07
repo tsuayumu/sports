@@ -18,7 +18,7 @@ TEAM = [
 
 TEAM.each do |team|
 
-	url = "http://baseball-data.com/17/stats/hitter-#{team[:key]}/"
+	url = "https://baseball-data.com/17/stats/hitter-#{team[:key]}/"
 
 	charset = nil
 

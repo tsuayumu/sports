@@ -1,18 +1,15 @@
 class League < ActiveRecord::Base
-	belongs_to :team
+	has_many :teams
 
-	CENTRAL = 1
-	PACIFIC = 2
-
-	private_constant :CENTRAL, :PACIFIC
+	enum status: { central: 1, pacific: 2 }
 
 	class << self
-		def central_id
-			CENTRAL
+		def central_teams
+			find_by(status: statuses[:central]).try!(:teams)
 		end
 
-		def pacific_id
-			PACIFIC
+		def pacific_teams
+			find_by(status: statuses[:pacific]).try!(:teams)
 		end
 	end
 end
