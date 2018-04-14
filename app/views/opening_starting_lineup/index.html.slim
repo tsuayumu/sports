@@ -40,7 +40,7 @@ div[id="#{@team.name_en.capitalize}"]
 									td
 										|　打点
 									- opening_lineup.lineup.each_with_index do |order, index|
-										- player = Player.find(order.player_id)
+										- player = order.player
 										tr[style="text-align: center"]
 											- unless player.player_record2017.nil?
 												td
@@ -92,7 +92,7 @@ div[id="#{@team.name_en.capitalize}"]
 								td
 									|　打点
 							- opening_lineup.lineup.each_with_index do |order, index|
-								- player = Player.find(order.player_id)
+								- player = order.player
 								tr[style="text-align: center"]
 									- unless player.player_record2017.nil?
 										td
