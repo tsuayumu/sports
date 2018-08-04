@@ -20,5 +20,8 @@ class ApplicationController < ActionController::Base
     if params[:year].present?
       raise unless params[:year] =~ /(2017|2018)/
     end
+    if params[:league].present?
+      raise unless params[:league] =~ League.league_regexp_for_routing
+    end
   end
 end

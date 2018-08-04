@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407095933) do
+ActiveRecord::Schema.define(version: 20180414033621) do
 
   create_table "leagues", force: true do |t|
     t.string   "name",                   null: false
@@ -77,6 +77,29 @@ ActiveRecord::Schema.define(version: 20180407095933) do
   end
 
   add_index "players", ["team_id"], name: "index_players_on_team_id", using: :btree
+
+  create_table "ranking_manages", force: true do |t|
+    t.integer  "user_id"
+    t.string   "dopester"
+    t.integer  "ranking_id"
+    t.integer  "year",       null: false
+    t.integer  "league_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ranking_manages", ["league_id"], name: "index_ranking_manages_on_league_id", using: :btree
+  add_index "ranking_manages", ["ranking_id"], name: "index_ranking_manages_on_ranking_id", using: :btree
+  add_index "ranking_manages", ["user_id"], name: "index_ranking_manages_on_user_id", using: :btree
+
+  create_table "rankings", force: true do |t|
+    t.integer  "rank",       null: false
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rankings", ["team_id"], name: "index_rankings_on_team_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name",       null: false

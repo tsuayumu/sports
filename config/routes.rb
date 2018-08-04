@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   post 'opening_starting_lineup/:team/:year' => 'opening_starting_lineup#create', as: :create_opening_starting_lineup
   post 'opening_starting_lineup/:team/:year/comment' => 'opening_starting_lineup#create_comment', as: :create_opening_starting_lineup_comment
 
+  get 'ranking/:league/:year' => 'ranking#index', as: :index_ranking
+  post 'ranking/:league/:year' => 'ranking#create', as: :create_ranking
+  post 'ranking/:league/:year/comment' => 'ranking#create_comment', as: :create_ranking_comment  
+
   resources :users, only: [:new, :create, :edit, :update]
 
   namespace :user do
