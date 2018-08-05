@@ -11,7 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180414033621) do
+ActiveRecord::Schema.define(version: 20180805003706) do
+
+  create_table "dream_lineup_manages", force: true do |t|
+    t.string   "comment",    default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dream_lineups", force: true do |t|
+    t.integer  "dream_player_id"
+    t.integer  "dream_lineup_manage_id"
+    t.integer  "order",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dream_lineups", ["dream_lineup_manage_id"], name: "index_dream_lineups_on_dream_lineup_manage_id", using: :btree
+
+  create_table "dream_players", force: true do |t|
+    t.decimal  "average",    precision: 4, scale: 3, default: 0.0, null: false
+    t.integer  "rbi",                                default: 0,   null: false
+    t.integer  "homerun",                            default: 0,   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "steal",                              default: 0,   null: false
+  end
 
   create_table "leagues", force: true do |t|
     t.string   "name",                   null: false
