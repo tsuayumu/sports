@@ -1,0 +1,135 @@
+div[id="Giants"]
+	div.uk-container.uk-container-center
+		h1.page-tit.white
+			| 理想のスタメン
+		div.form-content
+			= form_for @lineup_form, url: :create_dream_lineup do |f|
+				h2.white
+					| 打順入力
+				table[border="0"  width="100%" style="color: white"]
+						tr[style="text-align: center"]
+							td
+								| 
+							td
+								| 打率
+							td
+								| 本塁打
+							td
+								|　打点
+							td
+								|　盗塁
+						- 9.times do |n|	
+							= f.fields_for "dream_lineups[#{n}]" do |m|
+								tr[style="text-align: center"]
+									td
+										| #{n+1}番
+									td
+										| 0.
+										= m.number_field :average, maxlength: 4, style: "width: 5em", value: 250
+									td
+										= m.number_field :homerun, maxlength: 3, style: "width: 5em", value: 16
+									td
+										= m.number_field :rbi, maxlength: 3, style: "width: 5em", value: 33
+									td
+										= m.number_field :steal, maxlength: 3, style: "width: 5em", value: 8
+									/ td
+									/ 	= m.number_field :rbi, maxlength: 2
+								= m.hidden_field :order, value: n+1
+				// | user: #{f.text_field :user_id}
+				= f.submit '登録'
+					p
+						| ＊デフォルトは管理人予想
+
+		h2.white
+			| 投稿一覧#{@dream_lineups.count}件
+
+		div.hidden-ss.uk-grid
+			- @dream_lineups.each do |opening_lineup|
+				div.bbs-contet.uk-width-1-3[id="#{opening_lineup.id * 10}"]
+					section.member[style="text-align: center;"]
+						div.back-brack
+							table[border="0"  width="80%" style="color: white"]
+								tr[style="text-align: center"]
+									td
+										|
+									td
+										| 打率
+									td
+										| 本塁打
+									td
+										| 打点
+									td
+										| 盗塁
+									- opening_lineup.dream_lineup.each_with_index do |order, index|
+										- player = DreamPlayer.find(order.dream_player_id)
+										tr[style="text-align: right"]
+											td
+												| #{index + 1} 番
+											td
+												| .
+												= (player.average * 1000).to_i
+											td
+												= player.homerun 
+											td
+												= player.rbi
+											td
+												= player.steal 
+
+					/ section.uk-width-3-5.coment
+					/ 	h3
+					/ 		| コメント
+					/ 	= form_for @comment_form, url: :create_opening_starting_lineup_comment do |f|
+					/ 		| 感想: #{f.text_field :comment, required: true}
+					/ 		= f.hidden_field :opening_starting_lineup_id, value: opening_lineup.id
+					/ 		- if current_user.present?
+					/ 			= f.hidden_field :user_id, value: current_user.id
+					/ 		= f.submit '投稿'
+					/ 	div.text-coment
+					/ 		- comments = opening_starting_lineup_comments(opening_lineup.id)
+					/ 		- if comments.present?
+					/ 			- comments.each do |comment|
+					/ 				p
+					/ 					|　#{comment.comment}   #{comment.updated_at}
+
+		div.visible-ss
+			- @dream_lineups.each do |opening_lineup|
+				div#test.bbs-content.uk-container.uk-container-center
+					section.member[style="text-align: center;"]
+						table[border="0"  width="100%" style="color: white"]
+							tr[style="text-align: center"]
+								td
+									| 打率
+								td
+									| 本塁打
+								td
+									| 打点
+								td
+									| 盗塁
+							- opening_lineup.dream_lineup.each_with_index do |order, index|
+								- player = DreamPlayer.find(order.dream_player_id)
+								tr[style="text-align: center"]
+									td
+										| .
+										= (player.average * 1000).to_i
+									td
+										= player.homerun 
+									td
+										= player.rbi
+									td
+										= player.steal
+									
+/ 					section.coment
+/ 						h3[style="padding:10px 0 0 0;"]
+/ 							| コメント
+/ 						= form_for @comment_form, url: :create_opening_starting_lineup_comment do |f|
+/ 							| 感想: #{f.text_field :comment, required: true}
+/ 							= f.hidden_field :opening_starting_lineup_id, value: opening_lineup.id
+/ 							- if current_user.present?
+/ 								= f.hidden_field :user_id, value: current_user.id
+/ 							= f.submit '投稿'
+/ 						div.text-coment
+/ 							- comments = opening_starting_lineup_comments(opening_lineup.id)
+/ 							- if comments.present?
+/ 								- comments.each do |comment|
+/ 									p
+/ 										|　#{comment.comment}   #{comment.updated_at}

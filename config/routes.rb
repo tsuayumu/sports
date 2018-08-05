@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     resources :opening_starting_lineup, only: [:create, :edit]
   end
 
+  get 'dream_lineup' => 'dream_lineup#index', as: :index_dream_lineup
+  post 'dream_lineup' => 'dream_lineup#create', as: :create_dream_lineup
+
   get 'login' => 'sessions#new', as: :login
   post 'session' => 'sessions#create', as: :session
   delete 'session' => 'sessions#destroy'
