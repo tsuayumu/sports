@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   post 'opening_starting_lineup/:team/:year' => 'opening_starting_lineup#create', as: :create_opening_starting_lineup
   post 'opening_starting_lineup/:team/:year/comment' => 'opening_starting_lineup#create_comment', as: :create_opening_starting_lineup_comment
 
+  post 'battle/index' => 'battle#index', as: :index_battle
+  post 'battle/create' => 'battle#create', as: :create_battle
+
   get 'ranking/:league/:year' => 'ranking#index', as: :index_ranking
   post 'ranking/:league/:year' => 'ranking#create', as: :create_ranking
   post 'ranking/:league/:year/comment' => 'ranking#create_comment', as: :create_ranking_comment  

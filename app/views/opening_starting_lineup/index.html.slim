@@ -1,3 +1,15 @@
+javascript:
+	function set_ajax() {
+		$('.js-battle-create').on('ajax:success', function(event) { 
+			alert("登録しました")
+		})
+
+		$('.js-battle-index').on('ajax:success', function(event, data) {
+			alert(data["score"])
+		})
+	}
+	$(document).on('turbolinks:load', set_ajax);
+
 div[id="#{@team.name_en.capitalize}"]
 	div.uk-container.uk-container-center
 		h1.page-tit.white
@@ -58,6 +70,11 @@ div[id="#{@team.name_en.capitalize}"]
 													| #{index+1}
 												td
 													| #{player.name.gsub(/\p{blank}/," ")}
+							= form_tag(create_battle_path(opening_lineup_id: opening_lineup.id), remote: true, format: 'json',class: "js-battle-create") do
+								= submit_tag "このチームで戦う", opening_lineup_id: opening_lineup.id
+							= form_tag(index_battle_path(opening_lineup_id: opening_lineup.id), remote: true, format: 'json', class: "js-battle-index") do
+								= submit_tag "このチームと戦う", opening_lineup_id: opening_lineup.id
+
 					section.uk-width-3-5.coment
 						h3
 							| コメント
@@ -109,7 +126,13 @@ div[id="#{@team.name_en.capitalize}"]
 										td
 											| #{index+1}
 										td
-											| #{player.name.gsub(/\p{blank}/," ")}									
+											| #{player.name.gsub(/\p{blank}/," ")}
+
+						= form_tag(create_battle_path(opening_lineup_id: opening_lineup.id), remote: true, format: 'json',class: "js-battle-create") do
+								= submit_tag "このチームで戦う", opening_lineup_id: opening_lineup.id
+						= form_tag(index_battle_path(opening_lineup_id: opening_lineup.id), remote: true, format: 'json', class: "js-battle-index") do
+							= submit_tag "このチームと戦う", opening_lineup_id: opening_lineup.id
+
 					section.coment
 						h3[style="padding:10px 0 0 0;"]
 							| コメント
