@@ -108,7 +108,7 @@ div[id="Giants"]
 					/ 					|　#{comment.comment}   #{comment.updated_at}
 
 		div.visible-ss
-			- @dream_lineups.each do |opening_lineup|
+			- @dream_lineups.each do |dream_lineup|
 				div#test.bbs-content.uk-container.uk-container-center
 					section.member[style="text-align: center;"]
 						table[border="0"  width="100%" style="color: white"]
@@ -121,7 +121,7 @@ div[id="Giants"]
 									| 打点
 								td
 									| 盗塁
-							- opening_lineup.dream_lineup.each_with_index do |order, index|
+							- dream_lineup.dream_lineup.each_with_index do |order, index|
 								- player = DreamPlayer.find(order.dream_player_id)
 								tr[style="text-align: center"]
 									td
@@ -133,6 +133,11 @@ div[id="Giants"]
 										= player.rbi
 									td
 										= player.steal
+
+						= form_tag(create_dream_battle_path(dream_lineup_id: dream_lineup.id), remote: true, format: 'json',class: "js-battle-create") do
+							= submit_tag "このチームで戦う", dream_lineup_id: dream_lineup.id
+						= form_tag(index_dream_battle_path(dream_lineup_id: dream_lineup.id), remote: true, format: 'json', class: "js-battle-index") do
+							= submit_tag "このチームと戦う", dream_lineup_id: dream_lineup.id
 									
 / 					section.coment
 / 						h3[style="padding:10px 0 0 0;"]
