@@ -1,3 +1,15 @@
+javascript:
+	function set_ajax() {
+		$('.js-battle-create').on('ajax:success', function(event) { 
+			alert("登録しました")
+		})
+
+		$('.js-battle-index').on('ajax:success', function(event, data) {
+			alert(data["score"])
+		})
+	}
+	$(document).on('turbolinks:load', set_ajax);
+
 div[id="Giants"]
 	div.uk-container.uk-container-center
 		h1.page-tit.white
@@ -25,27 +37,27 @@ div[id="Giants"]
 										| #{n+1}番
 									td
 										| 0.
-										= m.number_field :average, maxlength: 4, style: "width: 5em", value: 250
+										= m.select :average, select_average, selected: 250
 									td
-										= m.number_field :homerun, maxlength: 3, style: "width: 5em", value: 16
+										= m.select :homerun, select_homerun, selected: 10
 									td
-										= m.number_field :rbi, maxlength: 3, style: "width: 5em", value: 33
+										= m.select :rbi, select_rbi, selected: 30
 									td
-										= m.number_field :steal, maxlength: 3, style: "width: 5em", value: 8
+										= m.select :steal, select_steal, selected: 5
 									/ td
 									/ 	= m.number_field :rbi, maxlength: 2
 								= m.hidden_field :order, value: n+1
 				// | user: #{f.text_field :user_id}
 				= f.submit '登録'
-					p
-						| ＊デフォルトは管理人予想
+				p[style="color: white"]
+						| ＊打率は合計で2250以内、本塁打は合計で150本以内、打点は合計で350点以内、盗塁は合計で80以内で入力してください
 
 		h2.white
 			| 投稿一覧#{@dream_lineups.count}件
 
-		div.hidden-ss.uk-grid
-			- @dream_lineups.each do |opening_lineup|
-				div.bbs-contet.uk-width-1-3[id="#{opening_lineup.id * 10}"]
+		div.hidden-ss.uk-grid[data-uk-grid-margin]
+			- @dream_lineups.each do |dream_lineup|
+				div.bbs-contet.uk-width-1-3[id="#{dream_lineup.id * 10}"]
 					section.member[style="text-align: center;"]
 						div.back-brack
 							table[border="0"  width="80%" style="color: white"]
@@ -60,7 +72,7 @@ div[id="Giants"]
 										| 打点
 									td
 										| 盗塁
-									- opening_lineup.dream_lineup.each_with_index do |order, index|
+									- dream_lineup.dream_lineup.each_with_index do |order, index|
 										- player = DreamPlayer.find(order.dream_player_id)
 										tr[style="text-align: right"]
 											td
@@ -73,7 +85,11 @@ div[id="Giants"]
 											td
 												= player.rbi
 											td
-												= player.steal 
+												= player.steal
+						= form_tag(create_dream_battle_path(dream_lineup_id: dream_lineup.id), remote: true, format: 'json',class: "js-battle-create") do
+							= submit_tag "このチームで戦う", dream_lineup_id: dream_lineup.id
+						= form_tag(index_dream_battle_path(dream_lineup_id: dream_lineup.id), remote: true, format: 'json', class: "js-battle-index") do
+							= submit_tag "このチームと戦う", dream_lineup_id: dream_lineup.id
 
 					/ section.uk-width-3-5.coment
 					/ 	h3

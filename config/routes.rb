@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   post 'battle/index' => 'battle#index', as: :index_battle
   post 'battle/create' => 'battle#create', as: :create_battle
 
+  post 'dream_battle/index' => 'dream_battle#index', as: :index_dream_battle
+  post 'dream_battle/create' => 'dream_battle#create', as: :create_dream_battle
+
   get 'ranking/:league/:year' => 'ranking#index', as: :index_ranking
   post 'ranking/:league/:year' => 'ranking#create', as: :create_ranking
   post 'ranking/:league/:year/comment' => 'ranking#create_comment', as: :create_ranking_comment  

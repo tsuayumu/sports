@@ -7,7 +7,10 @@ class DreamLineupController < ApplicationController
 
 	def create
 		@form = DreamLineupForm.new(params[:dream_lineup_form])
-		@form.save
-		redirect_to :index_dream_lineup
+		if @form.save
+			redirect_to :index_dream_lineup
+		else
+			redirect_to :index_dream_lineup
+		end
 	end
 end

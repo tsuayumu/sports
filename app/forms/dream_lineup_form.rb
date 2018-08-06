@@ -6,7 +6,7 @@ class DreamLineupForm
 	attr_accessor :dream_lineups
 
 	def save
-		raise unless valid_sum?
+		return false unless valid_sum?
 		lineup_manage = DreamLineupManage.create
 		dream_lineups.each do |player|
 			dream_player = DreamPlayer.create(
