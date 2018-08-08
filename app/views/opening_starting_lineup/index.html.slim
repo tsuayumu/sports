@@ -5,8 +5,17 @@ javascript:
 		})
 
 		$('.js-battle-index').on('ajax:success', function(event, data) {
-			alert(data["score"])
-		})
+				alert(data["score"])
+				if(data["enemy_record"] && data["my_record"] ) {
+					$(".record-" + data["enemy_record"]["id"]).text(
+						 "勝敗：" + data["enemy_record"]["win"] + " 勝 " + data["enemy_record"]["lose"] + " 敗 " + data["enemy_record"]["draw"] + " 分 "
+					)
+					$(".record-" + data["my_record"]["id"]).text(
+						 "勝敗：" + data["my_record"]["win"] + " 勝 " + data["my_record"]["lose"] + " 敗 " + data["my_record"]["draw"] + " 分 "
+					)
+				}
+			}
+		)
 	}
 	$(document).on('turbolinks:load', set_ajax);
 
@@ -70,6 +79,8 @@ div[id="#{@team.name_en.capitalize}"]
 													| #{index+1}
 												td
 													| #{player.name.gsub(/\p{blank}/," ")}
+							p[class="record-#{opening_lineup.id}"]
+								| 勝敗：#{opening_lineup.win} 勝 #{opening_lineup.lose} 敗 #{opening_lineup.draw} 分
 							= form_tag(create_battle_path(opening_lineup_id: opening_lineup.id), remote: true, format: 'json',class: "js-battle-create") do
 								= submit_tag "このチームで戦う", opening_lineup_id: opening_lineup.id
 							= form_tag(index_battle_path(opening_lineup_id: opening_lineup.id), remote: true, format: 'json', class: "js-battle-index") do
@@ -127,6 +138,8 @@ div[id="#{@team.name_en.capitalize}"]
 											| #{index+1}
 										td
 											| #{player.name.gsub(/\p{blank}/," ")}
+						p[class="record-#{opening_lineup.id}"]
+							| 勝敗：#{opening_lineup.win} 勝 #{opening_lineup.lose} 敗 #{opening_lineup.draw} 分
 
 						= form_tag(create_battle_path(opening_lineup_id: opening_lineup.id), remote: true, format: 'json',class: "js-battle-create") do
 								= submit_tag "このチームで戦う", opening_lineup_id: opening_lineup.id

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180805003706) do
+ActiveRecord::Schema.define(version: 20180808115226) do
 
   create_table "dream_lineup_manages", force: true do |t|
     t.string   "comment",    default: ""
@@ -48,11 +48,14 @@ ActiveRecord::Schema.define(version: 20180805003706) do
 
   create_table "lineup_manages", force: true do |t|
     t.integer  "user_id"
-    t.integer  "team_id",    null: false
-    t.integer  "year",       null: false
+    t.integer  "team_id",                null: false
+    t.integer  "year",                   null: false
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "win",        default: 0, null: false
+    t.integer  "lose",       default: 0, null: false
+    t.integer  "draw",       default: 0, null: false
   end
 
   add_index "lineup_manages", ["team_id"], name: "index_lineup_manages_on_team_id", using: :btree
