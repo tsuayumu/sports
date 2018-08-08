@@ -10,6 +10,40 @@ javascript:
 	}
 	$(document).on('turbolinks:load', set_ajax);
 
+	$(function(){
+		$('.select-average').change(function(){
+			average_sum = 0
+			for (  var i = 0;  i < 9;  i++  ) {
+	    	average_sum = average_sum + Number($("#dream_lineup_form_dream_lineups_" + i.toString() + "__average").val())
+			}
+	    $(".remain-average").text(2250 - average_sum);
+		});
+
+		$('.select-homerun').change(function(){
+			homerun_sum = 0
+			for (  var i = 0;  i < 9;  i++  ) {
+	    	homerun_sum = homerun_sum + Number($("#dream_lineup_form_dream_lineups_" + i.toString() + "__homerun").val())
+			}
+	    $(".remain-homerun").text(150 - homerun_sum)
+		});
+
+		$('.select-rbi').change(function(){
+			rbi_sum = 0
+			for (  var i = 0;  i < 9;  i++  ) {
+	    	rbi_sum = rbi_sum + Number($("#dream_lineup_form_dream_lineups_" + i.toString() + "__rbi").val())
+			}
+	    $(".remain-rbi").text(350 - rbi_sum)
+		});
+
+		$('.select-steal').change(function(){
+			steal_sum = 0
+			for (  var i = 0;  i < 9;  i++  ) {
+	    	steal_sum = steal_sum + Number($("#dream_lineup_form_dream_lineups_" + i.toString() + "__steal").val())
+			}
+	    $(".remain-steal").text(80 - steal_sum)
+		});
+	});
+
 div[id="Giants"]
 	div.uk-container.uk-container-center
 		h1.page-tit.white
@@ -30,6 +64,17 @@ div[id="Giants"]
 								|　打点
 							td
 								|　盗塁
+						tr[style="text-align: center"]
+							td
+								| 残り
+							td.remain-average
+								| 2250
+							td.remain-homerun
+								| 150
+							td.remain-rbi
+								| 350
+							td.remain-steal
+								| 80
 						- 9.times do |n|	
 							= f.fields_for "dream_lineups[#{n}]" do |m|
 								tr[style="text-align: center"]
@@ -37,13 +82,13 @@ div[id="Giants"]
 										| #{n+1}番
 									td
 										| 0.
-										= m.select :average, select_average, selected: 250
+										= m.select :average, select_average, { selected: 0}, { class: "select-average" }
 									td
-										= m.select :homerun, select_homerun, selected: 10
+										= m.select :homerun, select_homerun, { selected: 0}, { class: "select-homerun" }
 									td
-										= m.select :rbi, select_rbi, selected: 30
+										= m.select :rbi, select_rbi, { selected: 0 }, { class: "select-rbi" }
 									td
-										= m.select :steal, select_steal, selected: 5
+										= m.select :steal, select_steal, { selected: 0 }, { class: "select-steal" }
 									/ td
 									/ 	= m.number_field :rbi, maxlength: 2
 								= m.hidden_field :order, value: n+1
