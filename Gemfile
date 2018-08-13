@@ -42,3 +42,5 @@ gem 'slim-rails'
 
 gem 'unicorn'
 gem 'nokogiri'
+
+gem 'google-analytics-rails'
