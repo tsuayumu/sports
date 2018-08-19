@@ -44,3 +44,11 @@ gem 'unicorn'
 gem 'nokogiri'
 
 gem 'google-analytics-rails'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-safe-deploy-to', '~> 1.1.1'
+end
