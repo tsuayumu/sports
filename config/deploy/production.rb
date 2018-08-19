@@ -1,4 +1,4 @@
-set :branch, 'master'
+set :branch, 'capistrano'
 
 # server-based syntax
 # ======================
