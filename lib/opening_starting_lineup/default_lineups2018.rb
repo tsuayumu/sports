@@ -98,7 +98,7 @@ class OpeningStartingLineup::DefaultLineups2018
 			"マレーロ",
 			"中島",
 			"大城",
-			"伊藤"
+			"若月"
 		],
 		marines: [
 			"加藤",
