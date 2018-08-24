@@ -6,7 +6,7 @@ RAILS_ENV  = ENV['RAILS_ENV'] || 'development'
 
 worker_processes 3
 
-listen "unix:#{RAILS_ROOT}/tmp/sockets/unicorn.sock"
+listen "unix:/var/run/unicorn/unicorn_sports.sock"
 pid "#{RAILS_ROOT}/tmp/pids/unicorn.pid"
 
 preload_app true
