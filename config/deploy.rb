@@ -47,12 +47,21 @@ set :pty, true
 
 namespace :deploy do
 
+	#http://capistranorb.com/documentation/getting-started/flow/
+    #サンプルにunicorn再起動タスク
+    desc 'Restart application'
+    task :restart do
+      invoke 'unicorn:restart' #lib/capustrano/tasks/unicorn.cap内処理を実行
+    end
+  after :finishing, 'deploy:cleanup'
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
+      #after :finishing, 'deploy:cleanup' #task実行タイミングを指定できます。詳細は下記
     end
   end
 
