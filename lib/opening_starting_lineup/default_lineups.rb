@@ -153,7 +153,7 @@ class OpeningStartingLineup::DefaultLineups
 				"糸井",
 				"大山",
 				"福留",
-				"高山",
+				"ナバーロ",
 				"陽川",
 				"梅野",
 				"藤浪"
