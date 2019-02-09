@@ -4,9 +4,9 @@ class Player < ActiveRecord::Base
 	belongs_to :team
 
 	class << self
-		def team_player_and_id(team)
+		def team_player(team, year)
 			name_and_id = []
-			players = where(team_id: team)
+			players = where(team_id: team, year: year)
 			players.each do |player|
 				name_and_id << [player.name, player.id]
 			end

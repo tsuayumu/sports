@@ -31,6 +31,7 @@ TEAM.each do |team|
 
 	doc.xpath('//tr').each do |node|
 		player = Player.new
+		player.year = 2019
 		player.name = node.search("td:nth-child(2)").text
 		player.team_id = Team.team_id("#{team[:name_en]}")
 		player.save!

@@ -6,7 +6,7 @@ class OpeningStartingLineupController < ApplicationController
 		@lineup_form = OpeningStartingLineupForm.new(default_lineup)
 		@opening_lineups = LineupManage.team_lienups(params[:team], params[:year]).reverse
 		@comment_form = OpeningStartingLineupCommentForm.new
-		@select_players = Player.team_player_and_id(@team.id)
+		@select_players = Player.team_player(@team.id, @year)
 	end
 
 	def create
@@ -23,6 +23,6 @@ class OpeningStartingLineupController < ApplicationController
 
 	private
 	def default_lineup
-		OpeningStartingLineup::DefaultLineups2018.new(params[:team]).lineup
+		OpeningStartingLineup::DefaultLineups.new(params[:team], @year).lineup
 	end
 end

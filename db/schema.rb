@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180808115226) do
+ActiveRecord::Schema.define(version: 20190209104043) do
 
   create_table "dream_lineup_manages", force: true do |t|
     t.string   "comment",    default: ""
@@ -98,10 +98,11 @@ ActiveRecord::Schema.define(version: 20180808115226) do
   add_index "player_record2017s", ["player_id"], name: "index_player_record2017s_on_player_id", using: :btree
 
   create_table "players", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "team_id",    null: false
+    t.string   "name",                      null: false
+    t.integer  "team_id",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "year",       default: 2017
   end
 
   add_index "players", ["team_id"], name: "index_players_on_team_id", using: :btree

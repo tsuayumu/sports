@@ -18,7 +18,7 @@ TEAM = [
 
 TEAM.each do |team|
 
-	url = "https://baseball-data.com/17/stats/pitcher-#{team[:key]}/"
+	url = "https://baseball-data.com/stats/pitcher-#{team[:key]}/"
 
 	charset = nil
 
@@ -30,7 +30,7 @@ TEAM.each do |team|
 	doc = Nokogiri::HTML.parse(html, nil, charset)
 
 	doc.xpath('//tr').each do |node|
-		player = Player.find_by(name: node.search("td:nth-child(2)").text)
+		player = Player.where(year: 2019).find_by(name: node.search("td:nth-child(2)").text)
 		if player.present? && !player.id.nil? && !(player.name == "")
 			record = PlayerRecord2017.find_by(player_id: player.id)
 			if record.nil?

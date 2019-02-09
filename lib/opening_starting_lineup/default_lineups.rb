@@ -1,6 +1,6 @@
-class OpeningStartingLineup::DefaultLineups2018
+class OpeningStartingLineup::DefaultLineups
 
-	LINEUPS = {
+	LINEUPS_2018 = {
 		giants: [
 			"立岡",
 			"吉川",
@@ -135,10 +135,11 @@ class OpeningStartingLineup::DefaultLineups2018
 		]
 	}
 
-	private_constant :LINEUPS
+	private_constant :LINEUPS_2018
 
-	def initialize(team_name)
+	def initialize(team_name, year)
 		@team_name = team_name
+		@year = year
 	end
 
 	def lineup
@@ -146,7 +147,7 @@ class OpeningStartingLineup::DefaultLineups2018
 	end
 
 	def lineup_to_id
-		team = LINEUPS[@team_name.to_sym]
+		team = LINEUPS_2018[@team_name.to_sym]
 		team_id = {}
 		team_id[:lineups] = {}
 		9.times do |n|
@@ -156,7 +157,7 @@ class OpeningStartingLineup::DefaultLineups2018
 	end
 
 	def name_to_id(team, order)
-		player = Player.where(team_id: Team.team_id(@team_name)).where("name like '%#{team[order]}%'").take
+		player = Player.where(year: @year).where(team_id: Team.team_id(@team_name)).where("name like '%#{team[order]}%'").take
 		raise team[order].inspect if player.nil?
 		player.id
 	end
