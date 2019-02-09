@@ -1,3 +1,5 @@
+require 'rake'
+
 namespace :unicorn do
   task :environment do
     set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
